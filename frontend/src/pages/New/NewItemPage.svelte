@@ -24,13 +24,11 @@
     { value: 'log', label: 'Log Stok', icon: ClipboardList, backPath: '/logs' },
   ];
 
-  let type: ItemType = 'product';
+  const initialQuery = meta().query?.type as string | undefined;
+  let type: ItemType =
+    initialQuery && tabs.some((t) => t.value === initialQuery) ? (initialQuery as ItemType) : 'product';
 
   onMount(() => {
-    const q = meta().query?.type as string | undefined;
-    if (q && tabs.some((t) => t.value === q)) {
-      type = q as ItemType;
-    }
     loadProducts();
     loadCategories();
   });
