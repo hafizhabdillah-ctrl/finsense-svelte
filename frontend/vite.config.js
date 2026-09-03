@@ -11,6 +11,6 @@ export default defineConfig({
     cors: true,
   },
   build: {
-    minify: 'terser',
+    minify: 'esbuild',
   },
 });
