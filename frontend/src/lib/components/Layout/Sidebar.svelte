@@ -75,7 +75,7 @@
   <div class="mx-4 mt-2">
     <button
       on:click={() => {
-        router.goto('/transactions/new');
+        router.goto('/new');
         onClose();
       }}
       class="w-full bg-sky-950 text-white font-bold rounded-lg py-3 flex items-center justify-center gap-2 cursor-pointer hover:bg-sky-900 transition"

@@ -24,12 +24,8 @@
   import LogPage from './pages/Features/LogPage.svelte';
   import LogDetail from './pages/Read/LogDetail.svelte';
 
-  // New Item pages
-  import NewStock from './pages/New/NewStock.svelte';
-  import NewTransaction from './pages/New/NewTransaction.svelte';
-  import NewDebt from './pages/New/NewDebt.svelte';
-  import NewLog from './pages/New/NewLog.svelte';
-  import NewPos from './pages/New/NewPos.svelte';
+  // New Item page (unified)
+  import NewItemPage from './pages/New/NewItemPage.svelte';
 
   onMount(async () => {
     const token = localStorage.getItem('accessToken');
@@ -61,25 +57,21 @@
     <Route path="/reset-password"><ResetPasswordPage /></Route>
 
     <Route path="/dashboard"><DashboardPage /></Route>
+    <Route path="/new"><NewItemPage /></Route>
     <Route path="/stocks"><StockPage /></Route>
-    <Route path="/stocks/new"><NewStock /></Route>
     <Route path="/stocks/:id" let:meta>
       <StockDetail id={meta.params.id} />
     </Route>
     <Route path="/pos"><PosPage /></Route>
-    <Route path="/pos/new"><NewPos /></Route>
     <Route path="/transactions"><TransactionPage /></Route>
-    <Route path="/transactions/new"><NewTransaction /></Route>
     <Route path="/transactions/:id" let:meta>
       <TransactionDetail id={meta.params.id} />
     </Route>
     <Route path="/debts"><DebtPage /></Route>
-    <Route path="/debts/new"><NewDebt /></Route>
     <Route path="/debts/:id" let:meta>
       <DebtDetail id={meta.params.id} />
     </Route>
     <Route path="/logs"><LogPage /></Route>
-    <Route path="/logs/new"><NewLog /></Route>
     <Route path="/logs/:id" let:meta>
       <LogDetail id={meta.params.id} />
     </Route>

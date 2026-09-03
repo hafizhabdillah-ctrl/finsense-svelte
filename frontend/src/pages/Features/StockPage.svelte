@@ -51,7 +51,7 @@
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
       <h1 class="text-xl md:text-2xl font-bold">Manajemen Stok</h1>
       <button
-        on:click={() => router.goto('/stocks/new')}
+        on:click={() => router.goto('/new?type=product')}
         class="flex items-center gap-2 cursor-pointer bg-sky-950 p-2 px-4 text-white font-semibold border rounded-lg hover:bg-white hover:text-sky-950 transition-all"
       >
         Tambah Stok baru
