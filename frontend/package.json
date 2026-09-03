@@ -1,0 +1,36 @@
+{
+  "name": "finsense-frontend-svelte",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint .",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fontsource/poppins": "^5.3.0",
+    "axios": "^1.16.0",
+    "chart.js": "^4.4.0",
+    "jspdf": "^4.2.1",
+    "jspdf-autotable": "^5.0.8",
+    "lucide-svelte": "^1.0.1",
+    "svelte": "^4.2.8",
+    "svelte-spa-router": "^4.0.0",
+    "sweetalert2": "^11.26.24",
+    "tinro": "^0.6.12"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@sveltejs/vite-plugin-svelte": "^3.0.0",
+    "@tailwindcss/vite": "^4.2.4",
+    "autoprefixer": "^10.5.0",
+    "eslint": "^10.2.1",
+    "eslint-config-dicodingacademy": "^0.9.5",
+    "globals": "^17.5.0",
+    "postcss": "^8.5.10",
+    "tailwindcss": "^4.2.4",
+    "vite": "^5.4.0"
+  }
+}

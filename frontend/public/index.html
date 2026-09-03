@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinSense Svelte Setup</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        h1 { margin-bottom: 30px; text-align: center; color: #06b6d4; }
+        .section { background: rgba(255,255,255,0.05); padding: 25px; border-radius: 10px; margin-bottom: 20px; border: 1px solid rgba(6,182,212,0.2); }
+        .section h2 { color: #06b6d4; margin-bottom: 15px; }
+        code {
+            background: rgba(0,0,0,0.3);
+            padding: 10px 15px;
+            border-radius: 5px;
+            display: block;
+            margin: 10px 0;
+            overflow-x: auto;
+            font-size: 13px;
+        }
+        .command { color: #22d3ee; }
+        .status { padding: 15px; margin: 15px 0; border-radius: 5px; }
+        .status.success { background: rgba(34,197,94,0.2); border-left: 3px solid #22c55e; }
+        .status.info { background: rgba(6,182,212,0.2); border-left: 3px solid #06b6d4; }
+        ul { margin-left: 20px; margin-top: 10px; }
+        li { margin: 8px 0; }
+        a { color: #06b6d4; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 FinSense Svelte Frontend</h1>
+        
+        <div class="section">
+            <h2>✅ Setup Complete!</h2>
+            <p>Svelte frontend untuk FinSense telah berhasil disetup.</p>
+        </div>
+
+        <div class="section">
+            <h2>📦 Installation & Running</h2>
+            <code><span class="command">$ npm install</span></code>
+            <code><span class="command">$ npm run dev</span></code>
+            <p style="margin-top: 15px;">Server akan berjalan di <strong>http://localhost:5173</strong></p>
+        </div>
+
+        <div class="section">
+            <h2>⚙️ Configuration</h2>
+            <p>Copy .env.example ke .env dan sesuaikan:</p>
+            <code><span class="command">cp .env.example .env</span></code>
+            <p style="margin-top: 15px;">Pastikan backend URL menunjuk ke server API Anda (default: http://localhost:3000/api)</p>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Features Implemented</h2>
+            <ul>
+                <li>✅ Authentication (Login, Register, Password Reset)</li>
+                <li>✅ Dashboard with Statistics</li>
+                <li>✅ Stock Management</li>
+                <li>✅ Financial Records (Transactions)</li>
+                <li>✅ POS Terminal</li>
+                <li>✅ Customer Debt Management</li>
+                <li>✅ Inventory Logs</li>
+                <li>✅ User Profile & Settings</li>
+                <li>✅ Responsive Design</li>
+                <li>✅ Tailwind CSS Styling</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>📁 Project Structure</h2>
+            <ul>
+                <li><strong>src/pages/</strong> - Route pages</li>
+                <li><strong>src/lib/components/</strong> - Reusable components</li>
+                <li><strong>src/lib/services/</strong> - API service layer</li>
+                <li><strong>src/lib/stores/</strong> - State management (Svelte Stores)</li>
+                <li><strong>src/lib/utils/</strong> - Utility functions</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>🔗 Key Routes</h2>
+            <ul>
+                <li><code>/</code> - Landing page</li>
+                <li><code>/login</code> - Login</li>
+                <li><code>/register</code> - Register</li>
+                <li><code>/dashboard</code> - Dashboard</li>
+                <li><code>/stocks</code> - Stock Management</li>
+                <li><code>/transactions</code> - Financial Records</li>
+                <li><code>/pos</code> - POS Terminal</li>
+                <li><code>/debts</code> - Debt Management</li>
+                <li><code>/logs</code> - Inventory Logs</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>📚 Available Commands</h2>
+            <ul>
+                <li><code><span class="command">npm run dev</span></code> - Start development server</li>
+                <li><code><span class="command">npm run build</span></code> - Build for production</li>
+                <li><code><span class="command">npm run preview</span></code> - Preview production build</li>
+                <li><code><span class="command">npm run lint</span></code> - Run ESLint</li>
+            </ul>
+        </div>
+
+        <div class="section status success">
+            <strong>✅ Svelte Frontend Ready!</strong>
+            <p>Aplikasi Svelte Finsense siap untuk development. Semua fitur sudah ter-implementasi mirip dengan React, Vue, dan Angular version.</p>
+        </div>
+
+        <div class="section status info">
+            <strong>ℹ️ Next Steps</strong>
+            <ul style="margin-top: 10px;">
+                <li>Jalankan <code>npm install</code> untuk install dependencies</li>
+                <li>Setup .env file dengan backend API URL</li>
+                <li>Jalankan <code>npm run dev</code> untuk start development</li>
+                <li>Kunjungi <a href="http://localhost:5173">http://localhost:5173</a> di browser</li>
+            </ul>
+        </div>
+
+        <p style="text-align: center; margin-top: 40px; opacity: 0.6;">
+            Built with ❤️ using Svelte & Tailwind CSS | FinSense © 2026
+        </p>
+    </div>
+</body>
+</html>
