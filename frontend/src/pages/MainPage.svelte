@@ -1,7 +1,6 @@
 <script lang="ts">
   import { router } from 'tinro';
   
-  import logo from '../../images/logo.png';
   import hero from '../../images/herosection.png';
   import dashboard from '../../images/dashboard.png';
   import stock from '../../images/stock.png';
@@ -52,9 +51,9 @@
   };
 </script>
 
-<div class="min-h-screen bg-[#071426] font-poppins text-slate-100">
+<div class="min-h-screen bg-black font-poppins text-slate-100">
   <nav
-    class="sticky top-0 z-50 border-b border-white/10 bg-[#071426]/90 backdrop-blur-xl"
+    class="sticky top-0 z-50 border-b border-white/10 bg-black/90 backdrop-blur-xl"
   >
     <div class="mx-auto max-w-7xl px-5 sm:px-8">
       <div class="flex h-20 items-center justify-between">
@@ -62,25 +61,28 @@
           on:click={() => scrollToSection('produk')}
           class="flex items-center text-xl font-bold tracking-tight md:text-2xl cursor-pointer"
         >
-          <img src={logo} alt="FinSense Logo" class="h-9 w-auto mr-2" />
-          Fin<span class="text-cyan-300">Sense</span>
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="h-9 w-auto mr-2">
+            <path d="M19.6 5.3c-2-2.9-5.9-3.8-8.8-2l-4.9 3.1a5.6 5.6 0 0 0-2.5 3.7 5.7 5.7 0 0 0 .6 3.8 5.5 5.5 0 0 0-.8 2.1 5.8 5.8 0 0 0 1 4.4c2 2.9 5.9 3.8 8.8 2l4.9-3.1a5.6 5.6 0 0 0 2.5-3.7 5.7 5.7 0 0 0-.6-3.8 5.5 5.5 0 0 0 .8-2.1 5.8 5.8 0 0 0-1-4.4Z" fill="#FF3E00"/>
+            <path d="M10.4 19.4a3.5 3.5 0 0 1-3.7-1.4 3.2 3.2 0 0 1-.6-2.5l.2-.6.5.4a6.4 6.4 0 0 0 1.9 1l.4.1-.1.4a1 1 0 0 0 .2.9 1.1 1.1 0 0 0 1.2.4l.3-.1 4.9-3.1a.9.9 0 0 0 .4-.6 1 1 0 0 0-.1-.7 1.1 1.1 0 0 0-1.2-.4l-.3.1-1.9 1.2a3.6 3.6 0 0 1-1.1.4 3.5 3.5 0 0 1-3.7-1.4 3.2 3.2 0 0 1-.6-2.5 2.9 2.9 0 0 1 1.3-2l4.9-3.1a3.6 3.6 0 0 1 1.1-.4 3.5 3.5 0 0 1 3.7 1.4 3.2 3.2 0 0 1 .6 2.5l-.2.6-.5-.4a6.4 6.4 0 0 0-1.9-1l-.4-.1.1-.4a1 1 0 0 0-.2-.9 1.1 1.1 0 0 0-1.2-.4l-.3.1-4.9 3.1a.9.9 0 0 0-.4.6 1 1 0 0 0 .1.7 1.1 1.1 0 0 0 1.2.4l.3-.1 1.9-1.2a3.6 3.6 0 0 1 1.1-.4 3.5 3.5 0 0 1 3.7 1.4 3.2 3.2 0 0 1 .6 2.5 2.9 2.9 0 0 1-1.3 2l-4.9 3.1a3.6 3.6 0 0 1-1.1.4Z" fill="#FFF"/>
+          </svg>
+          Fin<span class="text-orange-500">Sense</span>
         </button>
         <div class="hidden items-center gap-8 text-sm font-medium text-slate-300 md:flex">
           <button
             on:click={() => scrollToSection('produk')}
-            class="transition-colors hover:text-cyan-300 cursor-pointer"
+            class="transition-colors hover:text-orange-500 cursor-pointer"
           >
             Produk
           </button>
           <button
             on:click={() => scrollToSection('fitur')}
-            class="transition-colors hover:text-cyan-300 cursor-pointer"
+            class="transition-colors hover:text-orange-500 cursor-pointer"
           >
             Fitur
           </button>
           <button
             on:click={() => scrollToSection('wawasan')}
-            class="transition-colors hover:text-cyan-300 cursor-pointer"
+            class="transition-colors hover:text-orange-500 cursor-pointer"
           >
             Wawasan AI
           </button>
@@ -94,7 +96,7 @@
           </button>
           <button
             on:click={() => router.goto('/register')}
-            class="rounded-lg bg-cyan-300 px-4 py-2.5 text-[#071426] shadow-[0_8px_24px_rgba(103,232,249,0.18)] transition hover:bg-cyan-200 sm:px-5 cursor-pointer"
+            class="rounded-lg bg-orange-500 px-4 py-2.5 text-black shadow-[0_8px_24px_rgba(249,115,22,0.18)] transition hover:bg-orange-400 sm:px-5 cursor-pointer"
           >
             Daftar
           </button>
@@ -128,21 +130,21 @@
   <main>
     <section
       id="produk"
-      class="relative overflow-hidden border-b border-white/10 bg-[radial-gradient(circle_at_80%_20%,rgba(14,165,233,0.18),transparent_32%),linear-gradient(135deg,#071426_0%,#0b2743_55%,#0b3954_100%)] px-5 py-16 sm:px-8 md:py-24 lg:py-28"
+      class="relative overflow-hidden border-b border-white/10 bg-[radial-gradient(circle_at_80%_20%,rgba(249,115,22,0.18),transparent_32%),linear-gradient(135deg,#000000_0%,#171717_55%,#0a0a0a_100%)] px-5 py-16 sm:px-8 md:py-24 lg:py-28"
     >
       <div
         class="relative mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[0.9fr_1.1fr]"
       >
         <div class="animate-fade-in-up text-center lg:text-left">
           <p
-            class="mb-5 text-xs font-bold uppercase tracking-[0.25em] text-cyan-300"
+            class="mb-5 text-xs font-bold uppercase tracking-[0.25em] text-orange-500"
           >
             Platform bisnis UMKM
           </p>
           <h1
             class="max-w-2xl text-4xl font-bold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-7xl"
           >
-            Cerdas mengelola bisnis, <span class="text-cyan-300"
+            Cerdas mengelola bisnis, <span class="text-orange-500"
               >siap bertumbuh.</span
             >
           </h1>
@@ -157,7 +159,7 @@
           >
             <button
               on:click={() => router.goto('/register')}
-              class="rounded-lg bg-cyan-300 px-6 py-3 font-bold text-[#071426] shadow-lg transition hover:-translate-y-0.5 hover:bg-cyan-200 cursor-pointer"
+              class="rounded-lg bg-orange-500 px-6 py-3 font-bold text-black shadow-lg transition hover:-translate-y-0.5 hover:bg-orange-400 cursor-pointer"
             >
               Mulai Sekarang
             </button>
@@ -177,7 +179,7 @@
         </div>
         <div class="relative animate-fade-in-up-delay">
           <div
-            class="absolute -inset-5 rounded-3xl bg-cyan-300/10 blur-3xl"
+            class="absolute -inset-5 rounded-3xl bg-orange-500/10 blur-3xl"
           />
           <div
             class="relative rounded-2xl border border-white/20 bg-white/10 p-2 shadow-2xl backdrop-blur-sm sm:p-3"
@@ -192,14 +194,14 @@
       </div>
     </section>
 
-    <section id="fitur" class="bg-[#0a1d33] px-5 py-20 sm:px-8 md:py-24">
+    <section id="fitur" class="bg-neutral-900 px-5 py-20 sm:px-8 md:py-24">
       <div class="mx-auto max-w-7xl">
         <div
           class="mb-12 flex flex-col justify-between gap-4 md:flex-row md:items-end"
         >
           <div>
             <p
-              class="mb-3 text-xs font-bold uppercase tracking-[0.25em] text-cyan-300"
+              class="mb-3 text-xs font-bold uppercase tracking-[0.25em] text-orange-500"
             >
               Satu ekosistem
             </p>
@@ -219,15 +221,15 @@
         <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {#each features as feature, index (feature.title)}
             <article
-              class={`group flex flex-col border border-white/10 bg-[#102b47] p-5 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/60 hover:bg-[#143858] ${
+              class={`group flex flex-col border border-white/10 bg-neutral-800 p-5 transition duration-300 hover:-translate-y-1 hover:border-orange-500/60 hover:bg-neutral-700 ${
                 index === 0 ? 'lg:col-span-2' : ''
               }`}
             >
               <div class="mb-5 flex items-center justify-between">
-                <span class="text-xs font-bold text-cyan-300"
+                <span class="text-xs font-bold text-orange-500"
                   >0{index + 1}</span
                 >
-                <span class="h-px w-10 bg-cyan-300/30" />
+                <span class="h-px w-10 bg-orange-500/30" />
               </div>
               <h3 class="text-lg font-bold text-white">{feature.title}</h3>
               <div class="my-6 h-32 w-full overflow-hidden rounded-lg bg-slate-800/50">
@@ -246,11 +248,11 @@
       </div>
     </section>
 
-    <section id="wawasan" class="bg-[#071426] px-5 py-20 sm:px-8 md:py-28">
+    <section id="wawasan" class="bg-black px-5 py-20 sm:px-8 md:py-28">
       <div class="mx-auto max-w-7xl">
         <div class="mb-16 max-w-2xl">
           <p
-            class="mb-3 text-xs font-bold uppercase tracking-[0.25em] text-cyan-300"
+            class="mb-3 text-xs font-bold uppercase tracking-[0.25em] text-orange-500"
           >
             Bekerja lebih cerdas
           </p>
@@ -307,11 +309,11 @@
   </main>
 
   <footer
-    class="border-t border-white/10 bg-[#050f1e] px-5 py-7 text-center text-sm text-slate-400 sm:px-8"
+    class="border-t border-white/10 bg-black px-5 py-7 text-center text-sm text-slate-400 sm:px-8"
   >
     <p>
       <span class="font-bold text-white"
-        >Fin<span class="text-cyan-300">Sense</span></span
+        >Fin<span class="text-orange-500">Sense</span></span
       >
       &copy; {new Date().getFullYear()} - Coding Camp 2026
     </p>
