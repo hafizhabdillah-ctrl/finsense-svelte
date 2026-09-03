@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
 const umkmRoutes = require('./routes/umkmRoutes');
+const dashboardRoutes = require('./routes/dashboardRoutes');
 const transactionRoutes = require('./routes/transactionRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
 const chatRoutes = require('./routes/chatRoutes');
@@ -75,6 +76,7 @@ app.use((req, res, next) => {
 // Routes
 app.use('/api/auth', unwrapRoute(authRoutes, 'authRoutes'));
 app.use('/api/umkm', unwrapRoute(umkmRoutes, 'umkmRoutes'));
+app.use('/api/dashboard', unwrapRoute(dashboardRoutes, 'dashboardRoutes'));
 app.use('/api/transactions', unwrapRoute(transactionRoutes, 'transactionRoutes'));
 app.use('/api/categories', unwrapRoute(categoryRoutes, 'categoryRoutes'));
 app.use('/api/chat', unwrapRoute(chatRoutes, 'chatRoutes'));

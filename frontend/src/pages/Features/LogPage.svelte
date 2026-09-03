@@ -37,9 +37,23 @@
       )
     : logs;
 
-  $: totalLogs = logs.length;
-  $: inCount = logs.filter((l) => l.type === 'in').length;
-  $: outCount = logs.filter((l) => l.type === 'out').length;
+  function isToday(d: string) {
+    const date = new Date(d);
+    const now = new Date();
+    return (
+      date.getDate() === now.getDate() &&
+      date.getMonth() === now.getMonth() &&
+      date.getFullYear() === now.getFullYear()
+    );
+  }
+
+  $: todaysLogs = logs.filter((l) => isToday(l.created_at));
+  $: inCount = todaysLogs
+    .filter((l) => l.type === 'in')
+    .reduce((acc, l) => acc + l.quantity, 0);
+  $: outCount = todaysLogs
+    .filter((l) => l.type === 'out')
+    .reduce((acc, l) => acc + l.quantity, 0);
 
   function formatDate(d: string) {
     return new Date(d).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
@@ -71,20 +85,19 @@
         Tambah Log baru
       </button>
     </div>
+    <p class="mx-2 -mt-3 mb-4 text-gray-500 text-sm">
+      {new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
+    </p>
 
     <!-- Stats -->
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
       <div class="bg-white rounded-lg shadow p-4">
-        <p class="text-gray-600 text-sm">Total Log</p>
-        <h3 class="text-2xl font-bold">{totalLogs}</h3>
+        <p class="text-gray-600 text-sm">Stok Masuk (Hari Ini)</p>
+        <h3 class="text-2xl font-bold">{inCount} <span class="text-sm font-normal text-gray-500">Barang</span></h3>
       </div>
       <div class="bg-white rounded-lg shadow p-4">
-        <p class="text-gray-600 text-sm">Barang Masuk</p>
-        <h3 class="text-2xl font-bold">{inCount}</h3>
-      </div>
-      <div class="bg-white rounded-lg shadow p-4">
-        <p class="text-gray-600 text-sm">Barang Keluar</p>
-        <h3 class="text-2xl font-bold">{outCount}</h3>
+        <p class="text-gray-600 text-sm">Stok Keluar (Hari Ini)</p>
+        <h3 class="text-2xl font-bold">{outCount} <span class="text-sm font-normal text-gray-500">Barang</span></h3>
       </div>
     </div>
 

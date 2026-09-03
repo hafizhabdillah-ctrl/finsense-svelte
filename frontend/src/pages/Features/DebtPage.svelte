@@ -70,6 +70,9 @@
         Tambah Hutang baru
       </button>
     </div>
+    <p class="mx-2 -mt-3 mb-4 text-gray-500 text-sm">
+      {new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
+    </p>
 
     <!-- Stats -->
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">

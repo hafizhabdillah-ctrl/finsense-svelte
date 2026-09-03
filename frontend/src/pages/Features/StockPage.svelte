@@ -39,7 +39,6 @@
 
   $: totalProducts = stocks.length;
   $: lowStockCount = stocks.filter((s) => s.stock <= s.min_stock).length;
-  $: totalStockValue = stocks.reduce((acc, s) => acc + (s.price ?? 0) * s.stock, 0);
 
   function formatRp(val: number) {
     return 'Rp ' + val.toLocaleString('id-ID');
@@ -57,20 +56,19 @@
         Tambah Stok baru
       </button>
     </div>
+    <p class="mx-2 -mt-3 mb-4 text-gray-500 text-sm">
+      {new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
+    </p>
 
     <!-- Stats -->
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
       <div class="bg-white rounded-lg shadow p-4">
-        <p class="text-gray-600 text-sm">Total Produk</p>
+        <p class="text-gray-600 text-sm">Produk Aktif</p>
         <h3 class="text-2xl font-bold">{totalProducts}</h3>
       </div>
       <div class="bg-white rounded-lg shadow p-4">
-        <p class="text-gray-600 text-sm">Stok Rendah / Habis</p>
+        <p class="text-gray-600 text-sm">Produk Menipis</p>
         <h3 class="text-2xl font-bold">{lowStockCount}</h3>
-      </div>
-      <div class="bg-white rounded-lg shadow p-4">
-        <p class="text-gray-600 text-sm">Total Nilai Stok</p>
-        <h3 class="text-2xl font-bold">{formatRp(totalStockValue)}</h3>
       </div>
     </div>
 

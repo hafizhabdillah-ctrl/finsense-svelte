@@ -43,6 +43,11 @@
   $: totalExpense = transactions
     .filter((t) => t.type === 'expense')
     .reduce((acc, t) => acc + t.amount, 0);
+  $: totalTransaksiBulanIni = transactions.filter((t) => {
+    const d = new Date(t.transaction_date);
+    const now = new Date();
+    return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+  }).length;
 
   function formatRp(val: number) {
     return 'Rp ' + val.toLocaleString('id-ID');
@@ -63,12 +68,15 @@
         Tambah Transaksi baru
       </button>
     </div>
+    <p class="mx-2 -mt-3 mb-4 text-gray-500 text-sm">
+      {new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
+    </p>
 
     <!-- Stats -->
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
       <div class="bg-white rounded-lg shadow p-4">
-        <p class="text-gray-600 text-sm">Total Transaksi</p>
-        <h3 class="text-2xl font-bold">{transactions.length}</h3>
+        <p class="text-gray-600 text-sm">Total Transaksi (Bulan Ini)</p>
+        <h3 class="text-2xl font-bold">{totalTransaksiBulanIni}</h3>
       </div>
       <div class="bg-white rounded-lg shadow p-4">
         <p class="text-gray-600 text-sm">Total Pemasukan</p>
