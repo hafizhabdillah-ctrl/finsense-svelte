@@ -2,7 +2,6 @@
   import { router } from 'tinro';
   import { authStore } from '../../stores/auth';
   import { authService } from '../../services';
-  import logo from '../../../../images/logo.png';
 
   // Import Ikon dari Lucide
   import {
@@ -55,7 +54,10 @@
   <!-- Header dengan tombol close di mobile -->
   <div class="flex items-center justify-between px-4 py-4">
     <div class="flex items-center">
-      <img src={logo} alt="logo" class="h-10 w-10 md:h-14 md:w-14" />
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 md:h-14 md:w-14">
+        <path d="M19.6 5.3c-2-2.9-5.9-3.8-8.8-2l-4.9 3.1a5.6 5.6 0 0 0-2.5 3.7 5.7 5.7 0 0 0 .6 3.8 5.5 5.5 0 0 0-.8 2.1 5.8 5.8 0 0 0 1 4.4c2 2.9 5.9 3.8 8.8 2l4.9-3.1a5.6 5.6 0 0 0 2.5-3.7 5.7 5.7 0 0 0-.6-3.8 5.5 5.5 0 0 0 .8-2.1 5.8 5.8 0 0 0-1-4.4Z" fill="#FF3E00"/>
+        <path d="M10.4 19.4a3.5 3.5 0 0 1-3.7-1.4 3.2 3.2 0 0 1-.6-2.5l.2-.6.5.4a6.4 6.4 0 0 0 1.9 1l.4.1-.1.4a1 1 0 0 0 .2.9 1.1 1.1 0 0 0 1.2.4l.3-.1 4.9-3.1a.9.9 0 0 0 .4-.6 1 1 0 0 0-.1-.7 1.1 1.1 0 0 0-1.2-.4l-.3.1-1.9 1.2a3.6 3.6 0 0 1-1.1.4 3.5 3.5 0 0 1-3.7-1.4 3.2 3.2 0 0 1-.6-2.5 2.9 2.9 0 0 1 1.3-2l4.9-3.1a3.6 3.6 0 0 1 1.1-.4 3.5 3.5 0 0 1 3.7 1.4 3.2 3.2 0 0 1 .6 2.5l-.2.6-.5-.4a6.4 6.4 0 0 0-1.9-1l-.4-.1.1-.4a1 1 0 0 0-.2-.9 1.1 1.1 0 0 0-1.2-.4l-.3.1-4.9 3.1a.9.9 0 0 0-.4.6 1 1 0 0 0 .1.7 1.1 1.1 0 0 0 1.2.4l.3-.1 1.9-1.2a3.6 3.6 0 0 1 1.1-.4 3.5 3.5 0 0 1 3.7 1.4 3.2 3.2 0 0 1 .6 2.5 2.9 2.9 0 0 1-1.3 2l-4.9 3.1a3.6 3.6 0 0 1-1.1.4Z" fill="#FFF"/>
+      </svg>
       <h1 class="font-bold py-1 px-2 text-2xl md:text-3xl">
         Fin<span class="text-orange-400">Sense</span>
       </h1>
