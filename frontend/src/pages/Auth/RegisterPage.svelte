@@ -42,8 +42,8 @@
   }
 </script>
 
-<div class="min-h-screen flex items-center justify-center bg-[#071426] p-4 font-poppins">
-  <div class="bg-[#0d1b2e] border border-white/10 p-6 sm:p-8 rounded-2xl shadow-2xl w-full max-w-md">
+<div class="min-h-screen flex items-center justify-center bg-[#000000] p-4 font-poppins">
+  <div class="bg-[#171717] border border-white/10 p-6 sm:p-8 rounded-2xl shadow-2xl w-full max-w-md">
     <div class="flex flex-col items-center">
       <div class="flex items-center gap-2">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="h-9 w-auto">
