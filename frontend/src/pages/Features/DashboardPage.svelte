@@ -96,20 +96,12 @@
     <!-- Stats Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
       <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
-        <p class="text-gray-600 text-sm mb-2">Pemasukan Hari Ini</p>
+        <p class="text-gray-600 text-sm mb-2 font-bold">PEMASUKAN HARI INI</p>
         <h3 class="text-2xl font-bold text-gray-800 mb-2">{formatRp(stats.totalPenjualanHariIni)}</h3>
       </div>
       <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
-        <p class="text-gray-600 text-sm mb-2">Total Transaksi Hari Ini</p>
+        <p class="text-gray-600 text-sm mb-2 font-bold">TRANSAKSI HARI INI</p>
         <h3 class="text-2xl font-bold text-gray-800 mb-2">{stats.totalTransaksiHariIni}</h3>
-      </div>
-      <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
-        <p class="text-gray-600 text-sm mb-2">Stok Produk</p>
-        <h3 class="text-2xl font-bold text-gray-800 mb-2">{stats.stokProduk}</h3>
-      </div>
-      <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
-        <p class="text-gray-600 text-sm mb-2">Hutang Pelanggan</p>
-        <h3 class="text-2xl font-bold text-gray-800 mb-2">{formatRp(stats.hutangPelanggan)}</h3>
       </div>
     </div>
 

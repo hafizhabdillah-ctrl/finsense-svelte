@@ -75,16 +75,20 @@
     <!-- Stats -->
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
       <div class="bg-white rounded-lg shadow p-4">
-        <p class="text-gray-600 text-sm">Total Transaksi (Bulan Ini)</p>
-        <h3 class="text-2xl font-bold">{totalTransaksiBulanIni}</h3>
-      </div>
-      <div class="bg-white rounded-lg shadow p-4">
-        <p class="text-gray-600 text-sm">Total Pemasukan</p>
+        <p class="text-gray-600 text-sm font-bold">PEMASUKAN</p>
         <h3 class="text-2xl font-bold">{formatRp(totalIncome)}</h3>
       </div>
       <div class="bg-white rounded-lg shadow p-4">
-        <p class="text-gray-600 text-sm">Total Pengeluaran</p>
+        <p class="text-gray-600 text-sm font-bold">PENGELUARAN</p>
         <h3 class="text-2xl font-bold">{formatRp(totalExpense)}</h3>
+      </div>
+      <div class="bg-white rounded-lg shadow p-4">
+        <p class="text-gray-600 text-sm font-bold">TOTAL TRANSAKSI</p>
+        <h3 class="text-2xl font-bold">{totalTransaksiBulanIni} 
+          <span class="text-sm"> 
+            Transaksi
+          </span>
+        </h3>
       </div>
     </div>
 

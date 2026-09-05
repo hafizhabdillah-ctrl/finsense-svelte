@@ -92,12 +92,12 @@
     <!-- Stats -->
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
       <div class="bg-white rounded-lg shadow p-4">
-        <p class="text-gray-600 text-sm">Stok Masuk (Hari Ini)</p>
-        <h3 class="text-2xl font-bold">{inCount} <span class="text-sm font-normal text-gray-500">Barang</span></h3>
+        <p class="text-gray-600 text-sm font-bold">STOK MASUK HARI INI</p>
+        <h3 class="text-2xl font-bold">{inCount} <span class="text-sm text-gray-500">Barang</span></h3>
       </div>
       <div class="bg-white rounded-lg shadow p-4">
-        <p class="text-gray-600 text-sm">Stok Keluar (Hari Ini)</p>
-        <h3 class="text-2xl font-bold">{outCount} <span class="text-sm font-normal text-gray-500">Barang</span></h3>
+        <p class="text-gray-600 text-sm font-bold">STOK KELUAR HARI INI</p>
+        <h3 class="text-2xl font-bold">{outCount} <span class="text-sm text-gray-500">Barang</span></h3>
       </div>
     </div>
 

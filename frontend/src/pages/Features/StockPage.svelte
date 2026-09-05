@@ -63,11 +63,11 @@
     <!-- Stats -->
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
       <div class="bg-white rounded-lg shadow p-4">
-        <p class="text-gray-600 text-sm">Produk Aktif</p>
+        <p class="text-gray-600 text-sm font-bold">PRODUK AKTIF</p>
         <h3 class="text-2xl font-bold">{totalProducts}</h3>
       </div>
       <div class="bg-white rounded-lg shadow p-4">
-        <p class="text-gray-600 text-sm">Produk Menipis</p>
+        <p class="text-gray-600 text-sm font-bold">PRODUK MENIPIS</p>
         <h3 class="text-2xl font-bold">{lowStockCount}</h3>
       </div>
     </div>
