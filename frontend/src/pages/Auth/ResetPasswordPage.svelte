@@ -83,17 +83,29 @@
 
         <form on:submit={handleSubmit} class="w-full">
           <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2">
+            <label for="reset-password" class="block text-gray-700 text-sm font-bold mb-2">
               Password Baru
             </label>
             <div class="relative">
-              <input
-                type={showPassword ? 'text' : 'password'}
-                value={password}
-                placeholder="Minimal 6 karakter"
-                class="w-full p-3 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-800"
-                required
-              />
+              {#if showPassword}
+                <input
+                  id="reset-password"
+                  type="text"
+                  bind:value={password}
+                  placeholder="Minimal 6 karakter"
+                  class="w-full p-3 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-800"
+                  required
+                />
+              {:else}
+                <input
+                  id="reset-password"
+                  type="password"
+                  bind:value={password}
+                  placeholder="Minimal 6 karakter"
+                  class="w-full p-3 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-800"
+                  required
+                />
+              {/if}
               <button
                 type="button"
                 on:click={() => (showPassword = !showPassword)}
@@ -105,17 +117,29 @@
           </div>
 
           <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2">
+            <label for="reset-confirm" class="block text-gray-700 text-sm font-bold mb-2">
               Konfirmasi Password
             </label>
             <div class="relative">
-              <input
-                type={showConfirm ? 'text' : 'password'}
-                value={confirm}
-                placeholder="Ulangi password baru"
-                class="w-full p-3 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-800"
-                required
-              />
+              {#if showConfirm}
+                <input
+                  id="reset-confirm"
+                  type="text"
+                  bind:value={confirm}
+                  placeholder="Ulangi password baru"
+                  class="w-full p-3 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-800"
+                  required
+                />
+              {:else}
+                <input
+                  id="reset-confirm"
+                  type="password"
+                  bind:value={confirm}
+                  placeholder="Ulangi password baru"
+                  class="w-full p-3 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-800"
+                  required
+                />
+              {/if}
               <button
                 type="button"
                 on:click={() => (showConfirm = !showConfirm)}

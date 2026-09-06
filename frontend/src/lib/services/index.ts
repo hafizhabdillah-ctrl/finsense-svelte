@@ -169,6 +169,11 @@ export const debtService = {
     const response = await api.delete(`/debts/${id}`);
     return response.data;
   },
+
+  async addPayment(id: string, data: { amount: number; note?: string }) {
+    const response = await api.post(`/debts/${id}/pay`, data);
+    return response.data;
+  },
 };
 
 export const logService = {

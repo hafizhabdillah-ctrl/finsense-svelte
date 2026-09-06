@@ -11,6 +11,9 @@
   let stock: any = null;
   let loading = true;
   let error = '';
+  let editing = false;
+  let saving = false;
+  let form = { name: '', sku: '', unit: '', price: '' as number | '', min_stock: '' as number | '' };
 
   onMount(async () => {
     await loadStock();
@@ -49,7 +52,34 @@
   }
 
   function handleEdit() {
-    Swal.fire('Segera Hadir', 'Fitur edit produk akan segera tersedia.', 'info');
+    form = {
+      name: stock.name,
+      sku: stock.sku || '',
+      unit: stock.unit || '',
+      price: stock.price ?? '',
+      min_stock: stock.min_stock ?? '',
+    };
+    editing = true;
+  }
+
+  async function handleSave() {
+    saving = true;
+    try {
+      await stockService.update(id, {
+        name: form.name,
+        sku: form.sku || null,
+        unit: form.unit || null,
+        price: form.price !== '' ? Number(form.price) : null,
+        min_stock: form.min_stock !== '' ? Number(form.min_stock) : null,
+      });
+      await Swal.fire({ icon: 'success', title: 'Berhasil disimpan!', timer: 1500, showConfirmButton: false });
+      editing = false;
+      await loadStock();
+    } catch (err: any) {
+      Swal.fire('Gagal', err.response?.data?.error || 'Gagal menyimpan perubahan.', 'error');
+    } finally {
+      saving = false;
+    }
   }
 
   function formatRp(val: number) {
@@ -81,45 +111,80 @@
       <h1 class="text-2xl md:text-3xl font-bold mb-4">Detail Produk</h1>
 
       <div class="bg-white rounded-xl shadow p-6 space-y-4">
-        <div class="grid grid-cols-3 gap-2">
-          <span class="text-sm font-semibold text-gray-700">Nama Produk</span>
-          <span class="col-span-2 text-sm text-gray-800">{stock.name}</span>
-        </div>
-        <div class="grid grid-cols-3 gap-2">
-          <span class="text-sm font-semibold text-gray-700">SKU</span>
-          <span class="col-span-2 text-sm text-gray-800">{stock.sku ?? '-'}</span>
-        </div>
-        <div class="grid grid-cols-3 gap-2">
-          <span class="text-sm font-semibold text-gray-700">Stok</span>
-          <span class="col-span-2 text-sm text-gray-800">{stock.stock} {stock.unit ?? ''}</span>
-        </div>
-        <div class="grid grid-cols-3 gap-2">
-          <span class="text-sm font-semibold text-gray-700">Harga Jual</span>
-          <span class="col-span-2 text-sm font-semibold text-gray-800">
-            {stock.price != null ? formatRp(stock.price) : '-'}
-          </span>
-        </div>
-        <div class="grid grid-cols-3 gap-2">
-          <span class="text-sm font-semibold text-gray-700">Status</span>
-          <span class="col-span-2 text-sm {stock.stock <= stock.min_stock ? 'text-red-600' : 'text-green-600'}">
-            {stock.stock <= stock.min_stock ? 'Menipis' : 'Aman'}
-          </span>
-        </div>
+        {#if !editing}
+          <div class="grid grid-cols-3 gap-2">
+            <span class="text-sm font-semibold text-gray-700">Nama Produk</span>
+            <span class="col-span-2 text-sm text-gray-800">{stock.name}</span>
+          </div>
+          <div class="grid grid-cols-3 gap-2">
+            <span class="text-sm font-semibold text-gray-700">SKU</span>
+            <span class="col-span-2 text-sm text-gray-800">{stock.sku ?? '-'}</span>
+          </div>
+          <div class="grid grid-cols-3 gap-2">
+            <span class="text-sm font-semibold text-gray-700">Stok</span>
+            <span class="col-span-2 text-sm text-gray-800">{stock.stock} {stock.unit ?? ''}</span>
+          </div>
+          <div class="grid grid-cols-3 gap-2">
+            <span class="text-sm font-semibold text-gray-700">Harga Jual</span>
+            <span class="col-span-2 text-sm font-semibold text-gray-800">
+              {stock.price != null ? formatRp(stock.price) : '-'}
+            </span>
+          </div>
+          <div class="grid grid-cols-3 gap-2">
+            <span class="text-sm font-semibold text-gray-700">Status</span>
+            <span class="col-span-2 text-sm {stock.stock <= stock.min_stock ? 'text-red-600' : 'text-green-600'}">
+              {stock.stock <= stock.min_stock ? 'Menipis' : 'Aman'}
+            </span>
+          </div>
 
-        <div class="flex gap-3 pt-4">
-          <button
-            on:click={handleEdit}
-            class="px-5 py-2.5 bg-sky-950 text-white font-bold rounded-lg hover:bg-sky-900 transition cursor-pointer"
-          >
-            Edit
-          </button>
-          <button
-            on:click={handleDelete}
-            class="px-5 py-2.5 bg-red-600 text-white font-bold rounded-lg hover:bg-red-700 transition cursor-pointer"
-          >
-            Hapus
-          </button>
-        </div>
+          <div class="flex gap-3 pt-4">
+            <button
+              on:click={handleEdit}
+              class="px-5 py-2.5 bg-sky-950 text-white font-bold rounded-lg hover:bg-sky-900 transition cursor-pointer"
+            >
+              Edit
+            </button>
+            <button
+              on:click={handleDelete}
+              class="px-5 py-2.5 bg-red-600 text-white font-bold rounded-lg hover:bg-red-700 transition cursor-pointer"
+            >
+              Hapus
+            </button>
+          </div>
+        {:else}
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <label class="text-sm font-semibold text-gray-700">Nama Produk
+              <input bind:value={form.name} class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg" />
+            </label>
+            <label class="text-sm font-semibold text-gray-700">SKU
+              <input bind:value={form.sku} class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg" />
+            </label>
+            <label class="text-sm font-semibold text-gray-700">Satuan
+              <input bind:value={form.unit} class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg" />
+            </label>
+            <label class="text-sm font-semibold text-gray-700">Harga Jual (Rp)
+              <input type="number" min="0" bind:value={form.price} class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg" />
+            </label>
+            <label class="text-sm font-semibold text-gray-700">Stok Minimum
+              <input type="number" min="0" bind:value={form.min_stock} class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg" />
+            </label>
+          </div>
+          <div class="flex gap-3 pt-4">
+            <button
+              on:click={handleSave}
+              disabled={saving}
+              class="px-5 py-2.5 bg-sky-950 text-white font-bold rounded-lg hover:bg-sky-900 transition cursor-pointer disabled:opacity-50"
+            >
+              {saving ? 'Menyimpan...' : 'Simpan'}
+            </button>
+            <button
+              on:click={() => (editing = false)}
+              class="px-5 py-2.5 border border-gray-300 text-gray-600 font-semibold rounded-lg hover:bg-gray-50 transition cursor-pointer"
+            >
+              Batal
+            </button>
+          </div>
+        {/if}
       </div>
     {/if}
   </div>
