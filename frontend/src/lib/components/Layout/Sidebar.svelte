@@ -11,7 +11,7 @@
     ShoppingCart,
     Users,
     ClipboardList,
-    Plus,
+    CirclePlus,
     X,
     LogOut
   } from 'lucide-svelte';
@@ -64,25 +64,23 @@
     </div>
     <button
       on:click={onClose}
-      class="lg:hidden text-gray-500 hover:text-gray-700 cursor-pointer p-1"
+      class="lg:hidden text-gray-500 hover:text-gray-700 cursor-pointer"
       aria-label="Tutup Menu"
     >
-      <X size={20} />
+      <X size={24} />
     </button>
   </div>
 
   <!-- New Item -->
   <div class="mx-4 mt-2">
-    <button
-      on:click={() => {
-        router.goto('/new');
-        onClose();
-      }}
-      class="w-full bg-sky-950 text-white font-bold rounded-lg py-3 flex items-center justify-center gap-2 cursor-pointer hover:bg-sky-900 transition"
+    <a
+      href="/new"
+      on:click={onClose}
+      class="w-full bg-sky-950 text-white font-bold rounded-lg py-3 flex items-center justify-center gap-3 cursor-pointer"
     >
-      <Plus size={18} />
+      <CirclePlus size={20} />
       <span>New Item</span>
-    </button>
+    </a>
   </div>
 
   <!-- Menu Items -->
@@ -92,12 +90,12 @@
         <a
           href={item.path}
           on:click={onClose}
-          class="w-full py-3 px-3 flex items-center gap-3 rounded-lg transition cursor-pointer text-gray-500 hover:text-gray-900 hover:bg-gray-100"
+          class="w-full py-3 flex items-center justify-start rounded-lg transition {$router.path.startsWith(item.path)
+            ? 'bg-sky-100 text-sky-900 font-bold border-l-4 border-sky-800'
+            : 'text-gray-500 font-medium border-l-4 border-transparent hover:bg-gray-50'}"
         >
-          <svelte:component this={item.icon} size={20} class="shrink-0" />
-          <span class="font-medium">
-            {item.name}
-          </span>
+          <div class="mx-4"><svelte:component this={item.icon} size={22} /></div>
+          <span>{item.name}</span>
         </a>
       </div>
     {/each}
@@ -108,7 +106,7 @@
     <hr class="border-t border-gray-300 mx-4 mb-4" />
     <button
       on:click={handleLogout}
-      class="flex mx-4 py-2 px-3 gap-3 items-center text-gray-600 cursor-pointer hover:bg-red-50 hover:text-red-600 rounded-lg transition-colors font-medium"
+      class="flex mx-4 py-2 px-2 gap-2 items-center cursor-pointer hover:bg-gray-300 rounded-lg hover:text-gray-900 transition-colors"
     >
       <LogOut size={18} />
       <span>Logout</span>

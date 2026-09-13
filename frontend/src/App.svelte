@@ -24,6 +24,12 @@
   import LogPage from './pages/Features/LogPage.svelte';
   import LogDetail from './pages/Read/LogDetail.svelte';
 
+  // Edit Pages
+  import StockEdit from './pages/Edit/StockEdit.svelte';
+  import TransactionEdit from './pages/Edit/TransactionEdit.svelte';
+  import DebtEdit from './pages/Edit/DebtEdit.svelte';
+  import LogEdit from './pages/Edit/LogEdit.svelte';
+
   // New Item page (unified)
   import NewItemPage from './pages/New/NewItemPage.svelte';
 
@@ -56,22 +62,47 @@
     <Route path="/lupa-password"><LupaPasswordPage /></Route>
     <Route path="/reset-password"><ResetPasswordPage /></Route>
 
+    <!-- Halaman utama -->
     <Route path="/dashboard"><DashboardPage /></Route>
+
+    <!-- Tambah item baru -->
     <Route path="/new"><NewItemPage /></Route>
-    <Route path="/stocks"><StockPage /></Route>
-    <Route path="/stocks/:id" let:meta>
-      <StockDetail id={meta.params.id} />
-    </Route>
-    <Route path="/pos"><PosPage /></Route>
+
+    <!-- Transaction -->
     <Route path="/transactions"><TransactionPage /></Route>
+    <Route path="/transactions/edit/:id" let:meta>
+      <TransactionEdit id={meta.params.id} />
+    </Route>
     <Route path="/transactions/:id" let:meta>
       <TransactionDetail id={meta.params.id} />
     </Route>
+
+    <!-- Stock -->
+    <Route path="/stocks"><StockPage /></Route>
+    <Route path="/stocks/edit/:id" let:meta>
+      <StockEdit id={meta.params.id} />
+    </Route>
+    <Route path="/stocks/:id" let:meta>
+      <StockDetail id={meta.params.id} />
+    </Route>
+
+    <!-- POS -->
+    <Route path="/pos"><PosPage /></Route>
+
+    <!-- Debt -->
     <Route path="/debts"><DebtPage /></Route>
+    <Route path="/debts/edit/:id" let:meta>
+      <DebtEdit id={meta.params.id} />
+    </Route>
     <Route path="/debts/:id" let:meta>
       <DebtDetail id={meta.params.id} />
     </Route>
+
+    <!-- Log -->
     <Route path="/logs"><LogPage /></Route>
+    <Route path="/logs/edit/:id" let:meta>
+      <LogEdit id={meta.params.id} />
+    </Route>
     <Route path="/logs/:id" let:meta>
       <LogDetail id={meta.params.id} />
     </Route>

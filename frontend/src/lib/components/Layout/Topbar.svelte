@@ -2,7 +2,7 @@
   import { router } from 'tinro';
   import { authStore } from '../../stores/auth';
   import SettingsModal from './SettingsModal.svelte';
-  import { Settings } from 'lucide-svelte';
+  import { Settings, TextAlignStart } from 'lucide-svelte';
 
   export let onMenuClick = () => {};
 
@@ -21,7 +21,7 @@
       on:click={onMenuClick}
       class="lg:hidden text-gray-600 hover:text-gray-900 p-1 rounded-md focus:outline-none cursor-pointer"
     >
-      ☰
+      <TextAlignStart size={28} />
     </button>
     <button
       on:click={() => window.history.back()}
@@ -37,7 +37,7 @@
       on:click={() => (isSettingsModalOpen = true)}
       class="cursor-pointer hover:text-gray-700 transition-colors p-1"
     >
-      <Settings />
+      <Settings size={26} />
     </button>
     <div class="pl-2 md:pl-4 border-l border-gray-300 font-semibold text-sky-950">
       {auth.user?.full_name || 'User'}

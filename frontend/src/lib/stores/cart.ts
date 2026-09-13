@@ -7,7 +7,7 @@ export interface CartItem {
   qty: number;
 }
 
-const STORAGE_KEY = 'finsense_cart';
+const STORAGE_KEY = 'pos_cart';
 
 function loadCart(): CartItem[] {
   try {

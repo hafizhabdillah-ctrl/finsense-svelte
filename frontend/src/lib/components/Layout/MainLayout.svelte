@@ -4,7 +4,7 @@
   import { authStore } from '../../stores/auth';
   import Sidebar from './Sidebar.svelte';
   import Topbar from './Topbar.svelte';
-  import Loading from '../Loading.svelte';
+  import Chat from '../Chat.svelte';
 
   let sidebarOpen = false;
   let auth = $authStore;
@@ -46,5 +46,10 @@
     <div class="flex-1 overflow-y-auto p-4 md:p-6">
       <slot />
     </div>
+  </div>
+
+  <!-- Chat component -->
+  <div class="fixed bottom-4 right-4 z-20">
+    <Chat />
   </div>
 </div>

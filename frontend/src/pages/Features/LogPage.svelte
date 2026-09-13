@@ -1,175 +1,190 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { router } from 'tinro';
+  import Swal from 'sweetalert2';
+  import { CirclePlus, Search } from 'lucide-svelte';
   import MainLayout from '../../lib/components/Layout/MainLayout.svelte';
-  import { logService } from '../../lib/services';
+  import api from '../../lib/services/api';
 
   let searchTerm = '';
   let logs: any[] = [];
+  let todayLogs: any[] = [];
   let loading = true;
-  let error = '';
 
   onMount(async () => {
-    await loadLogs();
-  });
-
-  async function loadLogs() {
     loading = true;
-    error = '';
+    const today = new Date();
+    const startOfDay = new Date(today.setHours(0, 0, 0, 0)).toISOString();
+    const endOfDay = new Date(today.setHours(23, 59, 59, 999)).toISOString();
     try {
-      logs = await logService.getAll();
+      const [allRes, todayRes] = await Promise.all([
+        api.get('/stock-logs'),
+        api.get('/stock-logs', { params: { startDate: startOfDay, endDate: endOfDay } }),
+      ]);
+      logs = allRes.data || [];
+      todayLogs = todayRes.data || [];
     } catch (err: any) {
-      error = err.response?.data?.error || 'Gagal memuat data log.';
+      Swal.fire('Error', 'Gagal memuat data log stok', 'error');
     } finally {
       loading = false;
     }
+  });
+
+  // ---------------- Statistik hari ini ----------------
+  $: stockIn = todayLogs.filter((l) => l.type === 'in').reduce((sum, l) => sum + l.quantity, 0);
+  $: stockOut = todayLogs.filter((l) => l.type === 'out').reduce((sum, l) => sum + l.quantity, 0);
+
+  // ---------------- Filter (nama produk atau SKU) + pagination ----------------
+  let currentPage = 1;
+  const itemsPerPage = 10;
+
+  $: filteredLogs = !searchTerm.trim()
+    ? logs
+    : logs.filter(
+        (log) =>
+          log.product?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          log.product?.sku?.toLowerCase().includes(searchTerm.toLowerCase()),
+      );
+
+  // Kembali ke halaman 1 saat pencarian berubah
+  $: {
+    searchTerm;
+    currentPage = 1;
   }
 
-  function goToDetail(id: string) {
-    router.goto(`/logs/${id}`);
-  }
+  $: indexOfLastItem = currentPage * itemsPerPage;
+  $: indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  $: currentItems = filteredLogs.slice(indexOfFirstItem, indexOfLastItem);
+  $: totalItems = filteredLogs.length;
+  $: startRange = totalItems === 0 ? 0 : indexOfFirstItem + 1;
+  $: endRange = Math.min(indexOfLastItem, totalItems);
 
-  $: filteredLogs = searchTerm
-    ? logs.filter(
-        (l) =>
-          (l.product?.name && l.product.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
-          (l.product?.sku && l.product.sku.toLowerCase().includes(searchTerm.toLowerCase()))
-      )
-    : logs;
-
-  function isToday(d: string) {
-    const date = new Date(d);
-    const now = new Date();
-    return (
-      date.getDate() === now.getDate() &&
-      date.getMonth() === now.getMonth() &&
-      date.getFullYear() === now.getFullYear()
-    );
-  }
-
-  $: todaysLogs = logs.filter((l) => isToday(l.created_at));
-  $: inCount = todaysLogs
-    .filter((l) => l.type === 'in')
-    .reduce((acc, l) => acc + l.quantity, 0);
-  $: outCount = todaysLogs
-    .filter((l) => l.type === 'out')
-    .reduce((acc, l) => acc + l.quantity, 0);
-
-  function formatDate(d: string) {
-    return new Date(d).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
-  }
-
-  function typeLabel(t: string) {
-    return { in: 'Masuk', out: 'Keluar', adjust: 'Penyesuaian' }[t] ?? t;
-  }
-  function typeClass(t: string) {
-    return {
-      in: 'bg-green-100 text-green-700',
-      out: 'bg-red-100 text-red-700',
-      adjust: 'bg-blue-100 text-blue-700',
-    }[t] ?? 'bg-gray-100 text-gray-600';
-  }
-  function statusClass(s: string) {
-    return s === 'completed' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700';
-  }
+  const goToNextPage = () => {
+    if (indexOfLastItem < totalItems) currentPage += 1;
+  };
+  const goToPrevPage = () => {
+    if (currentPage > 1) currentPage -= 1;
+  };
 </script>
 
 <MainLayout>
   <div>
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
-      <h1 class="text-xl md:text-2xl font-bold">Log Barang</h1>
+      <div>
+        <h1 class="text-xl md:text-2xl font-bold">Log Barang</h1>
+        <p class="text-gray-500 text-sm mt-1">
+          {new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
+        </p>
+      </div>
       <button
         on:click={() => router.goto('/new?type=log')}
         class="flex items-center gap-2 cursor-pointer bg-sky-950 p-2 px-4 text-white font-semibold border rounded-lg hover:bg-white hover:text-sky-950 transition-all"
       >
-        Tambah Log baru
+        <CirclePlus size={16} />
+        <span>Tambah Log baru</span>
       </button>
     </div>
-    <p class="mx-2 -mt-3 mb-4 text-gray-500 text-sm">
-      {new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}
-    </p>
 
-    <!-- Stats -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-      <div class="bg-white rounded-lg shadow p-4">
-        <p class="text-gray-600 text-sm font-bold">STOK MASUK HARI INI</p>
-        <h3 class="text-2xl font-bold">{inCount} <span class="text-sm text-gray-500">Barang</span></h3>
+    <!-- Statistik -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+      <div class="relative flex-1 flex flex-col justify-between bg-white p-4 border rounded-md border-gray-300 shadow-sm">
+        <h1 class="text-gray-500 font-bold text-sm uppercase tracking-wider">STOK MASUK HARI INI</h1>
+        <p class="flex items-center gap-2 text-2xl font-bold text-sky-950">
+          <span>{stockIn}</span>
+          <span class="relative text-sm top-1">Barang</span>
+        </p>
       </div>
-      <div class="bg-white rounded-lg shadow p-4">
-        <p class="text-gray-600 text-sm font-bold">STOK KELUAR HARI INI</p>
-        <h3 class="text-2xl font-bold">{outCount} <span class="text-sm text-gray-500">Barang</span></h3>
+      <div class="relative flex-1 flex flex-col justify-between bg-white p-4 border rounded-md border-gray-300 shadow-sm">
+        <h1 class="text-gray-500 font-bold text-sm uppercase tracking-wider">STOK KELUAR HARI INI</h1>
+        <p class="flex items-center gap-2 text-2xl font-bold text-sky-950">
+          <span>{stockOut}</span>
+          <span class="relative text-sm top-1">Barang</span>
+        </p>
       </div>
     </div>
 
     <!-- Search Bar -->
-    <div class="relative mt-4 max-w-md mb-6">
+    <div class="relative mt-4 max-w-md">
       <input
         type="text"
-        bind:value={searchTerm}
         placeholder="Cari berdasarkan nama produk atau SKU..."
+        bind:value={searchTerm}
         class="w-full p-2 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-950"
       />
+      <Search size={16} class="absolute left-3 top-3 text-gray-400" />
     </div>
 
-    <!-- Table -->
-    <div class="overflow-x-auto bg-white rounded-lg shadow">
+    <!-- Tabel -->
+    <div class="overflow-x-auto mt-2">
       {#if loading}
-        <div class="flex items-center justify-center py-12">
-          <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-sky-950"></div>
-          <span class="ml-3 text-gray-500">Memuat data...</span>
-        </div>
-      {:else if error}
-        <div class="py-8 text-center text-red-500">{error}</div>
+        <div class="p-4">Memuat data log...</div>
       {:else}
-        <table class="w-full">
-          <thead>
-            <tr class="bg-sky-950">
-              <th class="px-6 py-3 text-left text-sm font-bold text-white">No.</th>
-              <th class="px-6 py-3 text-left text-sm font-bold text-white">Produk</th>
-              <th class="px-6 py-3 text-left text-sm font-bold text-white">SKU</th>
-              <th class="px-6 py-3 text-left text-sm font-bold text-white">Tipe</th>
-              <th class="px-6 py-3 text-left text-sm font-bold text-white">Jumlah</th>
-              <th class="px-6 py-3 text-left text-sm font-bold text-white">Operator</th>
-              <th class="px-6 py-3 text-left text-sm font-bold text-white">Status</th>
-              <th class="px-6 py-3 text-left text-sm font-bold text-white">Tanggal</th>
-            </tr>
-          </thead>
-          <tbody>
-            {#if filteredLogs.length === 0}
-              <tr>
-                <td colspan="8" class="px-6 py-8 text-center text-gray-500">
-                  {searchTerm ? 'Log tidak ditemukan.' : 'Belum ada data log stok.'}
-                </td>
-              </tr>
-            {:else}
-              {#each filteredLogs as log, i (log.id)}
-                <tr
-                  class="border-b border-gray-200 hover:bg-gray-50 cursor-pointer"
-                  on:click={() => goToDetail(log.id)}
-                >
-                  <td class="px-6 py-3 text-sm">{i + 1}</td>
-                  <td class="px-6 py-3 font-medium">{log.product?.name ?? '-'}</td>
-                  <td class="px-6 py-3 text-gray-500 text-sm">{log.product?.sku ?? '-'}</td>
-                  <td class="px-6 py-3">
-                    <span class="px-2 py-0.5 rounded-full text-xs font-semibold {typeClass(log.type)}">
-                      {typeLabel(log.type)}
-                    </span>
-                  </td>
-                  <td class="px-6 py-3 font-semibold">{log.quantity}</td>
-                  <td class="px-6 py-3 text-gray-500 text-sm">{log.operator ?? '-'}</td>
-                  <td class="px-6 py-3">
-                    <span class="px-2 py-0.5 rounded-full text-xs font-semibold {statusClass(log.status)}">
-                      {log.status === 'completed' ? 'Selesai' : 'Audit'}
-                    </span>
-                  </td>
-                  <td class="px-6 py-3 text-sm">{formatDate(log.created_at)}</td>
-                </tr>
-              {/each}
-            {/if}
-          </tbody>
-        </table>
-        <div class="px-6 py-3 text-sm text-gray-500 border-t">
-          Menampilkan {filteredLogs.length === 0 ? 0 : 1}-{filteredLogs.length} dari {filteredLogs.length} log
+        <div class="overflow-x-auto">
+          <div class="min-w-[800px]">
+            <div class="bg-sky-950 p-2 flex w-full mt-4 text-white font-semibold">
+              <div class="flex-1 text-center">Waktu</div>
+              <div class="flex-1 text-center">Produk</div>
+              <div class="flex-1 text-center">SKU</div>
+              <div class="flex-1 text-center">Tipe</div>
+              <div class="flex-1 text-center">Jumlah</div>
+              <div class="flex-1 text-center">Oleh</div>
+              <div class="flex-1 text-center">Status</div>
+            </div>
+            <div class="flex flex-col">
+              {#if currentItems.length === 0}
+                <div class="p-4 text-center text-gray-500">
+                  {searchTerm ? 'Tidak ada log yang cocok' : 'Tidak ada data log barang'}
+                </div>
+              {:else}
+                {#each currentItems as log (log.id)}
+                  <div
+                    role="button"
+                    tabindex="0"
+                    on:click={() => router.goto(`/logs/${log.id}`)}
+                    on:keydown={(e) => e.key === 'Enter' && router.goto(`/logs/${log.id}`)}
+                    class="flex items-center w-full p-2 border-b border-r border-l border-gray-300 cursor-pointer hover:bg-gray-300 transition-all"
+                  >
+                    <div class="flex-1 text-center text-gray-800 text-sm">{new Date(log.created_at).toLocaleString()}</div>
+                    <div class="flex-1 text-center text-gray-800 text-sm font-bold">{log.product?.name}</div>
+                    <div class="flex-1 text-center text-gray-500 text-sm">{log.product?.sku}</div>
+                    <div class="flex-1 text-center text-gray-500 text-sm">
+                      {log.type === 'in' ? 'Stok Masuk' : log.type === 'out' ? 'Stok Keluar' : 'Penyesuaian'}
+                    </div>
+                    <div class="flex-1 text-center text-gray-800 text-sm">{log.quantity}</div>
+                    <div class="flex-1 text-center text-gray-800 text-sm">{log.operator}</div>
+                    <div class="flex-1 text-center text-gray-800 text-sm">
+                      {log.status === 'completed' ? 'Selesai' : 'Menunggu audit'}
+                    </div>
+                  </div>
+                {/each}
+              {/if}
+              <div class="p-2 border-t border-gray-200 flex justify-between">
+                <p class="text-sm text-gray-500">
+                  Menampilkan {startRange}-{endRange} dari {totalItems} log
+                </p>
+                <div class="flex gap-2">
+                  <button
+                    on:click={goToPrevPage}
+                    disabled={currentPage === 1}
+                    class="px-3 py-1 text-sm border rounded-md font-medium {currentPage === 1
+                      ? 'text-gray-300 border-gray-200'
+                      : 'cursor-pointer text-gray-600 border-gray-300 hover:bg-white'}"
+                  >
+                    Sebelumnya
+                  </button>
+                  <button
+                    on:click={goToNextPage}
+                    disabled={indexOfLastItem >= totalItems}
+                    class="px-3 py-1 text-sm border rounded-md font-medium {indexOfLastItem >= totalItems
+                      ? 'text-gray-300 border-gray-200'
+                      : 'cursor-pointer text-gray-600 border-gray-300 hover:bg-white'}"
+                  >
+                    Selanjutnya
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       {/if}
     </div>
