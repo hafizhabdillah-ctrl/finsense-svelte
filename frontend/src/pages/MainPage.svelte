@@ -1,5 +1,6 @@
 <script lang="ts">
   import { router } from 'tinro';
+  import { onMount } from 'svelte';
   import {
     NotebookPen,
     Coins,
@@ -139,8 +140,123 @@
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  let loading = true;
+
+  onMount(() => {
+    setTimeout(() => {
+      loading = false;
+    }, 900);
+  });
 </script>
 
+{#if loading}
+  <div class="min-h-screen bg-white font-poppins">
+    <div class="h-20 border-b border-slate-200 px-5 sm:px-8">
+      <div class="mx-auto flex h-full max-w-7xl items-center justify-between">
+        <div class="h-8 w-32 animate-pulse rounded bg-slate-200" />
+        <div class="hidden gap-8 md:flex">
+          <div class="h-4 w-14 animate-pulse rounded bg-slate-200" />
+          <div class="h-4 w-20 animate-pulse rounded bg-slate-200" />
+          <div class="h-4 w-12 animate-pulse rounded bg-slate-200" />
+        </div>
+        <div class="h-10 w-36 animate-pulse rounded-lg bg-slate-200" />
+      </div>
+    </div>
+    <div class="px-5 py-16 sm:px-8 md:py-24">
+      <div class="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2">
+        <div class="space-y-4">
+          <div class="h-10 w-full max-w-md animate-pulse rounded bg-slate-200" />
+          <div class="h-10 w-3/4 animate-pulse rounded bg-slate-200" />
+          <div class="h-4 w-full max-w-lg animate-pulse rounded bg-slate-200" />
+          <div class="h-4 w-2/3 max-w-lg animate-pulse rounded bg-slate-200" />
+          <div class="h-12 w-44 animate-pulse rounded-lg bg-slate-200" />
+        </div>
+        <div class="aspect-video w-full animate-pulse rounded-2xl bg-slate-200" />
+      </div>
+    </div>
+    <div class="bg-sky-950 px-5 py-20 sm:px-8">
+      <div class="mx-auto max-w-7xl">
+        <div class="mx-auto h-8 w-full max-w-md animate-pulse rounded bg-white/10" />
+        <div class="mx-auto mt-4 h-4 w-full max-w-sm animate-pulse rounded bg-white/10" />
+        <div class="mt-14 grid gap-6 sm:grid-cols-3">
+          <div class="h-48 animate-pulse rounded-2xl bg-white/10" />
+          <div class="h-48 animate-pulse rounded-2xl bg-white/10" />
+          <div class="h-48 animate-pulse rounded-2xl bg-white/10" />
+        </div>
+      </div>
+    </div>
+    <div class="bg-slate-50 px-5 py-20 sm:px-8">
+      <div class="mx-auto max-w-7xl">
+        <div class="mx-auto h-8 w-full max-w-md animate-pulse rounded bg-slate-200" />
+        <div class="mt-14 grid gap-6 lg:grid-cols-[1.1fr_1fr]">
+          <div class="h-80 animate-pulse rounded-2xl bg-slate-200" />
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="h-36 animate-pulse rounded-2xl bg-slate-200" />
+            <div class="h-36 animate-pulse rounded-2xl bg-slate-200" />
+            <div class="h-36 animate-pulse rounded-2xl bg-slate-200" />
+            <div class="h-36 animate-pulse rounded-2xl bg-slate-200" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bg-sky-950 px-5 py-20 sm:px-8">
+      <div class="mx-auto max-w-7xl">
+        <div class="mx-auto h-8 w-full max-w-sm animate-pulse rounded bg-white/10" />
+        <div class="mt-14 grid gap-8 sm:grid-cols-3">
+          <div class="h-28 animate-pulse rounded-2xl bg-white/10" />
+          <div class="h-28 animate-pulse rounded-2xl bg-white/10" />
+          <div class="h-28 animate-pulse rounded-2xl bg-white/10" />
+        </div>
+      </div>
+    </div>
+    <div class="bg-slate-50 px-5 py-20 sm:px-8">
+      <div class="mx-auto grid max-w-7xl items-center gap-12 md:grid-cols-2">
+        <div class="space-y-3">
+          <div class="h-6 w-40 animate-pulse rounded bg-slate-200" />
+          <div class="h-8 w-64 animate-pulse rounded bg-slate-200" />
+          <div class="h-4 w-full animate-pulse rounded bg-slate-200" />
+        </div>
+        <div class="aspect-video w-full animate-pulse rounded-2xl bg-slate-200" />
+      </div>
+    </div>
+    <div class="bg-white px-5 py-20 sm:px-8">
+      <div class="mx-auto grid max-w-7xl items-center gap-12 md:grid-cols-2">
+        <div class="aspect-video w-full animate-pulse rounded-2xl bg-slate-200" />
+        <div class="space-y-3">
+          <div class="h-6 w-40 animate-pulse rounded bg-slate-200" />
+          <div class="h-8 w-64 animate-pulse rounded bg-slate-200" />
+          <div class="h-4 w-full animate-pulse rounded bg-slate-200" />
+        </div>
+      </div>
+    </div>
+    <div class="bg-slate-50 px-5 py-20 sm:px-8">
+      <div class="mx-auto max-w-3xl">
+        <div class="mx-auto h-8 w-full max-w-sm animate-pulse rounded bg-slate-200" />
+        <div class="mt-10 space-y-3">
+          {#each Array(5) as _, i (i)}
+            <div class="h-14 animate-pulse rounded-2xl bg-slate-200" />
+          {/each}
+        </div>
+      </div>
+    </div>
+    <div class="bg-slate-900 px-5 py-20 sm:px-8">
+      <div class="mx-auto max-w-3xl space-y-4 text-center">
+        <div class="mx-auto h-8 w-full max-w-sm animate-pulse rounded bg-white/10" />
+        <div class="mx-auto h-4 w-full max-w-md animate-pulse rounded bg-white/10" />
+        <div class="mx-auto h-12 w-52 animate-pulse rounded-lg bg-white/10" />
+      </div>
+    </div>
+    <div class="bg-slate-950 px-5 py-14 sm:px-8">
+      <div class="mx-auto grid max-w-7xl gap-10 md:grid-cols-4">
+        <div class="h-24 animate-pulse rounded bg-white/10" />
+        <div class="h-24 animate-pulse rounded bg-white/10" />
+        <div class="h-24 animate-pulse rounded bg-white/10" />
+        <div class="h-24 animate-pulse rounded bg-white/10" />
+      </div>
+    </div>
+  </div>
+{:else}
 <div class="min-h-screen bg-white font-poppins text-slate-900">
   <nav class="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur-xl">
     <div class="mx-auto max-w-7xl px-5 sm:px-8">
@@ -256,28 +372,31 @@
       </div>
     </section>
 
-    <section id="masalah" class="bg-white px-5 py-20 sm:px-8 md:py-24">
-      <div class="mx-auto max-w-7xl">
+    <section
+      id="masalah"
+      class="relative overflow-hidden bg-sky-950 bg-[radial-gradient(circle_at_15%_15%,rgba(249,115,22,0.12),transparent_40%)] px-5 py-20 sm:px-8 md:py-24"
+    >
+      <div class="relative mx-auto max-w-7xl">
         <div class="mx-auto max-w-2xl text-center">
-          <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+          <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
             Masalah yang tiap hari dialami pemilik warung
           </h2>
-          <p class="mt-4 text-base leading-7 text-slate-600">
+          <p class="mt-4 text-base leading-7 text-slate-300">
             Banyak hal kecil di warung yang bikin pusing dari hari ke hari.
           </p>
         </div>
         <div class="mt-14 grid gap-6 sm:grid-cols-3">
           {#each problems as problem (problem.title)}
             <div
-              class="rounded-2xl border border-slate-200 bg-slate-50 p-7 transition hover:-translate-y-1 hover:shadow-lg"
+              class="rounded-2xl border border-white/10 bg-white/5 p-7 transition hover:-translate-y-1 hover:border-orange-500/40 hover:bg-white/10"
             >
               <div
-                class="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-orange-100 text-orange-600"
+                class="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-orange-500/15 text-orange-400"
               >
                 <svelte:component this={problem.icon} class="h-6 w-6" />
               </div>
-              <h3 class="text-lg font-bold text-slate-900">{problem.title}</h3>
-              <p class="mt-3 text-sm leading-6 text-slate-600">{problem.text}</p>
+              <h3 class="text-lg font-bold text-white">{problem.title}</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-300">{problem.text}</p>
             </div>
           {/each}
         </div>
@@ -335,13 +454,16 @@
       </div>
     </section>
 
-    <section id="cara-kerja" class="bg-white px-5 py-20 sm:px-8 md:py-24">
-      <div class="mx-auto max-w-7xl">
+    <section
+      id="cara-kerja"
+      class="relative overflow-hidden bg-sky-950 bg-[radial-gradient(circle_at_15%_15%,rgba(249,115,22,0.12),transparent_40%)] px-5 py-20 sm:px-8 md:py-24"
+    >
+      <div class="relative mx-auto max-w-7xl">
         <div class="mx-auto max-w-2xl text-center">
-          <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+          <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
             Mulai dalam 5 menit
           </h2>
-          <p class="mt-4 text-base leading-7 text-slate-600">
+          <p class="mt-4 text-base leading-7 text-slate-300">
             Tanpa ribet, tanpa instalasi hardware, atau kursus rumit.
           </p>
         </div>
@@ -353,8 +475,8 @@
               >
                 {step.number}
               </div>
-              <h3 class="mt-5 text-lg font-bold text-slate-900">{step.title}</h3>
-              <p class="mt-2 text-sm leading-6 text-slate-600">{step.text}</p>
+              <h3 class="mt-5 text-lg font-bold text-white">{step.title}</h3>
+              <p class="mt-2 text-sm leading-6 text-slate-300">{step.text}</p>
             </div>
           {/each}
         </div>
@@ -435,9 +557,16 @@
                     : ''}"
                 />
               </button>
-              {#if openFaq === i}
-                <p class="px-6 pb-5 text-sm leading-6 text-slate-600">{item.answer}</p>
-              {/if}
+              <div
+                class="grid overflow-hidden transition-[grid-template-rows] duration-300 ease-in-out {openFaq ===
+                i
+                  ? 'grid-rows-[1fr]'
+                  : 'grid-rows-[0fr]'}"
+              >
+                <div class="overflow-hidden">
+                  <p class="px-6 pb-5 text-sm leading-6 text-slate-600">{item.answer}</p>
+                </div>
+              </div>
             </div>
           {/each}
         </div>
@@ -459,7 +588,6 @@
         >
           Mulai Gratis Sekarang
         </button>
-        <p class="mt-4 text-xs text-slate-400">Daftar dalam 1 menit &bull; Tidak butuh kartu kredit</p>
       </div>
     </section>
   </main>
@@ -519,6 +647,7 @@
     </div>
   </footer>
 </div>
+{/if}
 
 <style>
   :global(html, body) {
