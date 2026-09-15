@@ -6,6 +6,7 @@
     LinearScale,
     PointElement,
     LineElement,
+    LineController,
     Title,
     Tooltip,
     Legend,
@@ -14,7 +15,7 @@
   import MainLayout from '../../lib/components/Layout/MainLayout.svelte';
   import api from '../../lib/services/api';
 
-  Chart.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler);
+  Chart.register(CategoryScale, LinearScale, PointElement, LineElement, LineController, Title, Tooltip, Legend, Filler);
 
   // ---------------- Statistik hari ini + grafik + prediksi AI ----------------
   let loading = true;

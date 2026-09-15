@@ -2,12 +2,12 @@
   import { onMount } from 'svelte';
   import { router } from 'tinro';
   import Swal from 'sweetalert2';
-  import { Chart, ArcElement, Tooltip, Legend } from 'chart.js';
+  import { Chart, ArcElement, DoughnutController, Tooltip, Legend } from 'chart.js';
   import { CirclePlus, Calendar } from 'lucide-svelte';
   import MainLayout from '../../lib/components/Layout/MainLayout.svelte';
   import api from '../../lib/services/api';
 
-  Chart.register(ArcElement, Tooltip, Legend);
+  Chart.register(DoughnutController, ArcElement, Tooltip, Legend);
 
   type Transaction = {
     id: string;

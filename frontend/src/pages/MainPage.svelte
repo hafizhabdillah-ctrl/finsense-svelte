@@ -279,7 +279,7 @@
               <path d="M18.5 8.5 13 14l-3-3-4.5 4.5" stroke="#F97316" />
             </svg>
           </div>
-          Fin<span class="text-orange-500">Sense</span>
+          <span>Fin<span class="text-orange-500">Sense</span></span>
         </button>
         <div class="hidden items-center gap-8 text-sm font-medium text-slate-600 md:flex">
           <button
@@ -610,7 +610,7 @@
               <path d="M18.5 8.5 13 14l-3-3-4.5 4.5" stroke="#F97316" />
             </svg>
           </div>
-          Fin<span class="text-orange-500">Sense</span>
+          <span>Fin<span class="text-orange-500">Sense</span></span>
         </div>
         <p class="mt-3 max-w-xs text-sm leading-6">
           POS Kasir Suara untuk pemilik warung dan UMKM di Indonesia.
