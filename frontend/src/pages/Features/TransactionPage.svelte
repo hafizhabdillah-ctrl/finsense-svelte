@@ -119,8 +119,8 @@
     return String(category);
   };
 
-  const getChartData = (type: 'income' | 'expense') => {
-    const filtered = transactions.filter((t) => t.type === type);
+  const getChartData = (list: Transaction[], type: 'income' | 'expense') => {
+    const filtered = list.filter((t) => t.type === type);
     const labels = [...new Set(filtered.map((t) => getCategoryName(t.category)))];
     const dataPoints = labels.map((label) =>
       filtered
@@ -143,8 +143,8 @@
     };
   };
 
-  $: incomeData = getChartData('income');
-  $: expenseData = getChartData('expense');
+  $: incomeData = getChartData(transactions, 'income');
+  $: expenseData = getChartData(transactions, 'expense');
   $: hasIncomeData =
     incomeData.datasets[0].data.length > 0 && incomeData.datasets[0].data.reduce((a, b) => a + b, 0) > 0;
   $: hasExpenseData =
